@@ -24,7 +24,10 @@ for i=1:niter
     
 %     [Psi, MU(i), dE(i)]=SSFM(eD_hp_itp,dt_itp,V,g,NN0,kk,dV,Psi);
     
+    eD_hp_itp = exp(0.5*dt_itp*(-0.5)*kk);
     [PsiL, MUL(i), dEL(i)]=SSFM(eD_hp_itp,dt_itp,V,g,NN0,kk,dV,Psi);
+    
+    eD_hp_itp = exp(0.5*dt_itp*khi*(-0.5)*kk);
     [PsiS, MUS(i), dES(i)]=SSFM(eD_hp_itp,khi*dt_itp,V,g,NN0,kk,dV,Psi);
     
     if (MUL(i)<MUS(i))||(dEL(i)<dES(i))
@@ -34,7 +37,6 @@ for i=1:niter
     else
         Psi=PsiS;
         dt_itp=khi*dt_itp;
-        eD_hp_itp = exp(0.5*dt_itp*(-0.5)*kk);
         khi=khi^2;
         MU(i)=MUS(i);
     end
